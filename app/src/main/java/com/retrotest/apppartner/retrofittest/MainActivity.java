@@ -4,10 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import org.json.JSONObject;
-
-import java.io.IOException;
-
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
@@ -23,19 +19,21 @@ public class MainActivity extends AppCompatActivity {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://www.reddit.com/")
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         RedditAPI redditAPI = retrofit.create(RedditAPI.class);
 
-        Call<String> call = redditAPI.getJson();
+        Call<Object> call = redditAPI.getJson();
 
-        call.enqueue(new Callback<String>() {
+        call.enqueue(new Callback<Object>() {
             @Override
-            public void onResponse(Response<String> response, Retrofit retrofit) {
+            public void onResponse(Response<Object> response, Retrofit retrofit) {
                 Log.d("TEST", "Success");
-                Log.d("TEST", "Headers: " + response.headers().toString());
-                Log.d("TEST", "Body: " + response.body().toString());
+                Log.d("TEST", "Raw: " + response.raw().toString());
                 Log.d("TEST", "Message: " + response.message());
+                Log.d("TEST", "Body: " + response.body().toString());
+                Log.d("TEST", "Headers: " + response.headers().toString());
             }
 
             @Override

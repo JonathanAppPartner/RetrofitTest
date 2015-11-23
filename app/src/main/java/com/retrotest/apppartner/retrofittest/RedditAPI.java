@@ -1,8 +1,5 @@
 package com.retrotest.apppartner.retrofittest;
 
-import com.google.gson.Gson;
-
-import org.json.JSONObject;
 
 import retrofit.Call;
 import retrofit.http.GET;
@@ -13,5 +10,5 @@ import retrofit.http.GET;
 public interface RedditAPI
 {
     @GET(".json")
-    Call<String> getJson();
+    Call<Object> getJson();
 }
